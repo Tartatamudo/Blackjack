@@ -12,8 +12,6 @@ public class Crupier {
 
 	private ArrayList<Carta> cartas = new ArrayList<Carta>();
 
-	private int num = 0;
-
 	public Crupier(JugadorBlackJack jugadorBlackJack) {
 		this.jugadorBlackJack = jugadorBlackJack;
 

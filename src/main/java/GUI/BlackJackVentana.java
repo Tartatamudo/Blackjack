@@ -1,7 +1,7 @@
 package GUI;
 
-import BlackJack.BlackJack;
 import BlackJack.Crupier;
+import BlackJack.JugadorBlackJack;
 
 import javax.swing.*;
 import java.awt.*;
@@ -50,9 +50,11 @@ public class BlackJackVentana extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == btnJugar){
+
             jPanel.removeAll();
-            BlackJack blackJack = new BlackJack();
-            //juegoLabel = new JLabel(blackJack.Jugar());
+
+            JugadorBlackJack jugadorBlackJack = new JugadorBlackJack("fabian");
+            Crupier crupier = new Crupier(jugadorBlackJack);
 
             jPanel.add(juegoLabel,BorderLayout.CENTER);
             jPanel.revalidate();
