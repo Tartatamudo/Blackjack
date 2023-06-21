@@ -1,10 +1,10 @@
-package Package;
+package BlackJack;
+
+import Corredor.Usuario;
 
 import java.util.ArrayList;
 
-public class Jugador {
-
-	private String nombre;
+public class JugadorBlackJack extends Usuario {
 	private int puntaje;
 	private ArrayList<Carta> cartas = new ArrayList<Carta>();
 
@@ -12,7 +12,7 @@ public class Jugador {
 	 *
 	 * @param nombre
 	 */
-	public Jugador(String nombre) {
+	public JugadorBlackJack(String nombre) {
 		this.nombre = nombre;
 	}
 

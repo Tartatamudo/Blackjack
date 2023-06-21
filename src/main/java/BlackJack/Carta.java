@@ -1,4 +1,4 @@
-package Package;
+package BlackJack;
 
 public class Carta {
 
