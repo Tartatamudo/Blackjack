@@ -12,18 +12,18 @@ import java.util.List;
 
 public class BlackJackVentana extends JFrame implements ActionListener {
     private JugadorBlackJack jugadorBlackJack;
-    private JLabel blackJackLabel;
-    private JLabel invisible;
     private JButton btnJugar;
     private JButton btnVolver;
     private JList resultadoList;
-    private JScrollPane scrollPane;
+    private JPanel ventana;
+    private JScrollPane resultadoScroll;
     private JLabel resultadoLabel;
+    private JLabel blackJackLabel;
 
-    private JPanel jPanel;
 
     public BlackJackVentana(JugadorBlackJack jugadorBlackJack) throws HeadlessException {
         this.jugadorBlackJack = jugadorBlackJack;
+        Pantalla();
     }
 
     public void Pantalla(){
@@ -32,34 +32,16 @@ public class BlackJackVentana extends JFrame implements ActionListener {
         setSize(1000, 750);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
 
-        blackJackLabel = new JLabel("BlackJack");
-        resultadoLabel = new JLabel("Resultado:");
-        btnJugar = new JButton("Jugar");
-        btnVolver = new JButton("Volver");
-
-
-        jPanel = new JPanel(new GridLayout(1, 1));
-
-
-        setLayout(new GridLayout(3, 2));
-
-        add(blackJackLabel);
-        add(invisible);
-        add(resultadoLabel);
-        add(jPanel);
-
-        add(btnJugar);
-        add(btnVolver);
+        setContentPane(ventana);
+        resultadoScroll.setViewportView(resultadoList);
 
         btnJugar.addActionListener(this);
         btnVolver.addActionListener(this);
         setVisible(true);
     }
     public void DeclararListaResultado(){
-        resultadoList = new JList<>();
-
         Crupier crupier = new Crupier(jugadorBlackJack);
         List<String> texto = Arrays.asList(crupier.Jugar().split(";"));
 
@@ -75,16 +57,11 @@ public class BlackJackVentana extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == btnJugar){
 
-            jPanel.removeAll();
 
             DeclararListaResultado();
 
-            scrollPane = new JScrollPane();
-            scrollPane.setViewportView(resultadoList);
+            resultadoScroll.repaint();
 
-            jPanel.add(scrollPane,BorderLayout.CENTER);
-            jPanel.revalidate();
-            jPanel.repaint();
 
         } else if (e.getSource() == btnVolver) {
             MenuPrincipal menu = new MenuPrincipal(jugadorBlackJack.GetNombre());

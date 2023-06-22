@@ -16,6 +16,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
     private JButton btnBlackJack;
     private JButton btnBullsEyeButton;
     private JButton btnVolver;
+    private JPanel ventana;
 
     public MenuPrincipal(String nombre) throws HeadlessException {
         this.nombre = nombre;
@@ -27,19 +28,9 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         setSize(1000, 750);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
 
-        eligaQueJuegoJugarLabel = new JLabel("Eliga que juego jugar");
-        btnBlackJack =new JButton("BlackJack");
-        btnBullsEyeButton = new JButton("BullsEye");
-        btnVolver = new JButton("Volver");
-        setLayout(new GridLayout(3, 2));
-
-        add(menu);
-        add(eligaQueJuegoJugarLabel);
-        add(btnBlackJack);
-        add(btnBullsEyeButton);
-        add(btnVolver);
+       setContentPane(ventana);
 
         btnBlackJack.addActionListener(this);
         btnBullsEyeButton.addActionListener(this);
@@ -53,7 +44,7 @@ public class MenuPrincipal extends JFrame implements ActionListener {
         if(e.getSource() == btnBlackJack){
             JugadorBlackJack jugadorBlackJack = new JugadorBlackJack(nombre);
             BlackJackVentana blackJackVentana = new BlackJackVentana(jugadorBlackJack);
-            blackJackVentana.Pantalla();
+
             setVisible(false);
         }else if(e.getSource() == btnBullsEyeButton){
             JugadorBullsEye jugadorBullsEye = new JugadorBullsEye(nombre);

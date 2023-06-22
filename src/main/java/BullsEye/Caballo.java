@@ -26,9 +26,9 @@ public class Caballo {
     }
     public String GetDatos(){
         String texto = "";
-        texto = texto + "Nombre: " + nombre + " ";
-        texto = texto + "Color: " + color + " ";
-        texto = texto + "Id: " + id + " ";
+        texto = texto + "Nombre: " + nombre + ", ";
+        texto = texto + "Color: " + color + ", ";
+        texto = texto + "Id: " + id;
     return texto;
     }
 }

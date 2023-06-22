@@ -30,7 +30,6 @@ public class BullsEyeVentana extends JFrame implements ActionListener {
     private JLabel a;
     private JLabel b;
     private JLabel c;
-    private JLabel d;
     private JScrollPane scrollPane;
 
     public BullsEyeVentana(JuegoBullsEye juegoBullsEye) throws HeadlessException {
@@ -43,43 +42,13 @@ public class BullsEyeVentana extends JFrame implements ActionListener {
         setSize(1000, 750);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
 
-        bullsEyeLabel = new JLabel("BullsEye");
-
-        numCaballoLabel = new JLabel("Escriba el id del caballo al que desea apostar del 1 al 6: ");
-        numCaballoTextField = new JTextField("caballo");
-
-        escribaApuesta = new JLabel("ELiga monto que va a apostar:");
-
-        btnHacerApuesta = new JButton("Hacer apuesta");
-        btnVolver = new JButton("Vover");
-
+        scrollPane.setViewportView(resultadoList);
 
         DeclararListNumApuesta();
 
-        apuestaTextField = new JTextField("apuesta");
-
-        jPanelResultado = new JPanel(new GridLayout(2, 1));
-
-        setLayout(new GridLayout(6, 2));
-
-        add(bullsEyeLabel);
-        add(a);
-        add(numCaballoLabel);
-        add(b);
-        add(numCaballoTextField);
-        add(c);
-
-        add(escribaApuesta);
-        add(apuestaList);
-        add(apuestaTextField);
-        add(jPanelResultado);
-
-        add(btnVolver);
-        add(btnHacerApuesta);
-        //add(d);
-
+       setContentPane(jPannel);
 
         btnVolver.addActionListener(this);
         btnHacerApuesta.addActionListener(this);
@@ -87,7 +56,6 @@ public class BullsEyeVentana extends JFrame implements ActionListener {
 
     }
     public void DeclararListNumApuesta(){
-        apuestaList = new JList<>();
         List<String> texto = Arrays.asList(juegoBullsEye.ElegirMontoApuesta().split(";"));
 
         apuestaList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
@@ -98,14 +66,14 @@ public class BullsEyeVentana extends JFrame implements ActionListener {
         apuestaList.setModel(modelo);
     }
     public void DeclararListResultado(int apuesta, int caballo){
-        resultadoList = new JList<>();
         List<String> texto = Arrays.asList(juegoBullsEye.Jugar(caballo, apuesta).split(";"));
-
+        resultadoList.removeAll();
         resultadoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
         DefaultListModel modelo = new DefaultListModel();
         for (int i = 0; i < texto.size(); i++) {
             modelo.addElement(texto.get(i));
         }
+
         resultadoList.setModel(modelo);
     }
     public int DeclararApuesta(){
@@ -133,9 +101,9 @@ public class BullsEyeVentana extends JFrame implements ActionListener {
         if (e.getSource() == btnHacerApuesta) {
             int apuesta = DeclararApuesta();
             if (apuesta == 0 || ValidarEntero(numCaballoTextField.getText()) != true ) {
-                jPanelResultado.removeAll();
-                caballoGanadorLabel = new JLabel("Escribio mal el numero del monto a apostar o del id del caballo");
-                jPanelResultado.add(caballoGanadorLabel);
+
+                caballoGanadorLabel.setText("Escribio mal el numero del monto a apostar o del id del caballo");
+
             }else{
             if (apuesta <= juegoBullsEye.Getjugador().GetMonto()) {
 
@@ -143,24 +111,17 @@ public class BullsEyeVentana extends JFrame implements ActionListener {
 
                 DeclararListResultado(apuesta, caballo);
 
-                caballoGanadorLabel = new JLabel(juegoBullsEye.ImprimirDatosCaballoganador());
-                jPanelResultado.removeAll();
+                caballoGanadorLabel.setText(juegoBullsEye.ImprimirDatosCaballoganador());
 
-                jPanelResultado.add(caballoGanadorLabel, BorderLayout.CENTER);
-
-                scrollPane = new JScrollPane();
-                scrollPane.setViewportView(resultadoList);
-                jPanelResultado.add(scrollPane);
+                scrollPane.revalidate();
+               scrollPane.repaint();
 
             } else {
-                jPanelResultado.removeAll();
-                caballoGanadorLabel = new JLabel("Usted no tiene dinero sufiecviente para realizar la apuesta");
-                jPanelResultado.add(caballoGanadorLabel);
-
+                caballoGanadorLabel.setText("Usted no tiene dinero sufiecviente para realizar la apuesta");
             }
         }
-            jPanelResultado.revalidate();
-            jPanelResultado.repaint();
+            //jPanelResultado.revalidate();
+            //jPanelResultado.repaint();
         }else if(e.getSource() == btnVolver){
             MenuPrincipal menu = new MenuPrincipal(juegoBullsEye.Getjugador().GetNombre());
             menu.Pantalla();

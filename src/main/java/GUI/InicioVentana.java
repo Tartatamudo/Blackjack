@@ -6,12 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class InicioVentana extends JFrame implements ActionListener {
-    private JLabel lblBienvenida;
-    private JLabel lblNombre;
     private JTextField nombreTextField;
     private JButton btnEntrarButton;
     private JButton btnSalirButton;
-    private JLabel a;
+    private JPanel ventana;
+    private JLabel lblBienvenida;
+    private JLabel lblEscribaNombre;
 
     public void Pantalla() {
         // Configuramos la ventana
@@ -19,26 +19,8 @@ public class InicioVentana extends JFrame implements ActionListener {
         setSize(1000, 750);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
-
-        lblBienvenida = new JLabel("Bienvenido");
-        lblNombre = new JLabel("Escriba su nombre");
-
-        nombreTextField = new JTextField("Escriba aqui");
-
-        btnEntrarButton = new JButton("Entrar al casino");
-        btnSalirButton = new JButton("Salir");
-
-        setLayout(new GridLayout(3, 2));
-
-        add(lblBienvenida);
-        add(a);
-        add(lblNombre);
-
-        add(nombreTextField);
-        add(btnEntrarButton);
-        add(btnSalirButton);
-
+        setResizable(true);
+        setContentPane(ventana);
         btnEntrarButton.addActionListener(this);
         btnSalirButton.addActionListener(this);
 

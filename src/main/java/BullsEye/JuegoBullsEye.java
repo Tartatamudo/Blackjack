@@ -12,6 +12,8 @@ public class JuegoBullsEye {
 
     public JuegoBullsEye(JugadorBullsEye jugadorBullsEye) {
         this.jugadorBullsEye = jugadorBullsEye;
+        AñadirBots();
+        AñadirCaballos();
     }
 
     public void AñadirCaballos() {
@@ -73,7 +75,7 @@ public class JuegoBullsEye {
     }
     public String Jugar(int caballoApuesta, int apuesta){
         String texto = "";
-        AñadirCaballos();
+
         DarNumRAndomCaballos();
 
         jugadorBullsEye.SetNumero(caballoApuesta);
@@ -82,7 +84,6 @@ public class JuegoBullsEye {
 
         texto = texto + ResultadoJugador(apuesta) + " ";
 
-        AñadirBots();
         texto = texto + ResultadoBots();
 
         return texto;
@@ -126,7 +127,7 @@ public class JuegoBullsEye {
         }else{
             montoGanado = (-apuesta);
             jugadorBullsEye.setMonto(montoGanado);
-            texto = texto + "jugador: " + jugadorBullsEye.GetNombre() + " perdio: " + Integer.toString(-(montoGanado))  + "Le quedan: " + jugadorBullsEye.GetMonto() + ";";
+            texto = texto + "jugador: " + jugadorBullsEye.GetNombre() + " perdio: " + Integer.toString(-(montoGanado))  + ", Le quedan: " + jugadorBullsEye.GetMonto() + ";";
         }
 
         return texto;
