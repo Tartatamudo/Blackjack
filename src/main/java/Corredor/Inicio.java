@@ -48,6 +48,6 @@ public class Inicio {
     }
     public void JugarBullsEye(JugadorBullsEye jugadorBullsEye){
         JuegoBullsEye juegoBullsEye = new JuegoBullsEye(jugadorBullsEye);
-        juegoBullsEye.Jugar();
+        //juegoBullsEye.Jugar();
     }
 }

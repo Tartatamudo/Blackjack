@@ -7,15 +7,24 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.List;
 
 public class BlackJackVentana extends JFrame implements ActionListener {
+    private JugadorBlackJack jugadorBlackJack;
     private JLabel blackJackLabel;
-    private JLabel juegoLabel;
+    private JLabel invisible;
     private JButton btnJugar;
     private JButton btnVolver;
+    private JList resultadoList;
+    private JScrollPane scrollPane;
     private JLabel resultadoLabel;
-    private JPanel panel1;
+
     private JPanel jPanel;
+
+    public BlackJackVentana(JugadorBlackJack jugadorBlackJack) throws HeadlessException {
+        this.jugadorBlackJack = jugadorBlackJack;
+    }
 
     public void Pantalla(){
         // Configuramos la ventana
@@ -36,15 +45,30 @@ public class BlackJackVentana extends JFrame implements ActionListener {
 
         setLayout(new GridLayout(3, 2));
 
+        add(blackJackLabel);
+        add(invisible);
         add(resultadoLabel);
         add(jPanel);
-        add(blackJackLabel);
+
         add(btnJugar);
         add(btnVolver);
 
         btnJugar.addActionListener(this);
         btnVolver.addActionListener(this);
         setVisible(true);
+    }
+    public void DeclararListaResultado(){
+        resultadoList = new JList<>();
+
+        Crupier crupier = new Crupier(jugadorBlackJack);
+        List<String> texto = Arrays.asList(crupier.Jugar().split(";"));
+
+        resultadoList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION );
+        DefaultListModel modelo = new DefaultListModel();
+        for (int i = 0; i < texto.size(); i++) {
+            modelo.addElement(texto.get(i));
+        }
+        resultadoList.setModel(modelo);
     }
 
     @Override
@@ -53,15 +77,17 @@ public class BlackJackVentana extends JFrame implements ActionListener {
 
             jPanel.removeAll();
 
-            JugadorBlackJack jugadorBlackJack = new JugadorBlackJack("fabian");
-            Crupier crupier = new Crupier(jugadorBlackJack);
+            DeclararListaResultado();
 
-            jPanel.add(juegoLabel,BorderLayout.CENTER);
+            scrollPane = new JScrollPane();
+            scrollPane.setViewportView(resultadoList);
+
+            jPanel.add(scrollPane,BorderLayout.CENTER);
             jPanel.revalidate();
             jPanel.repaint();
 
         } else if (e.getSource() == btnVolver) {
-            MenuPrincipal menu = new MenuPrincipal();
+            MenuPrincipal menu = new MenuPrincipal(jugadorBlackJack.GetNombre());
             menu.Pantalla();
             setVisible(false);
         }

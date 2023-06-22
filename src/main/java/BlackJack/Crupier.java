@@ -1,5 +1,7 @@
 package BlackJack;
 
+import BullsEye.JuegoBullsEye;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -64,15 +66,15 @@ public class Crupier {
 		int puntaje = cartas.get(0).GetValor() + cartas.get(1).GetValor() + cartas.get(2).GetValor();
 		String texto = "";
 		if(puntaje > 21){
-			texto = texto +  "El jugador: " + jugadorBlackJack.GetNombre() + " Gano  " + "\n";
+			texto = texto +  "El jugador: " + jugadorBlackJack.GetNombre() + " Gano;" + "\n";
 		}else if (jugadorBlackJack.GetPuntaje() > 21){
-			texto = texto + "El jugador: " + jugadorBlackJack.GetNombre() + " Perdio	" + "\n";
+			texto = texto + "El jugador: " + jugadorBlackJack.GetNombre() + " Perdio;" + "\n";
 		}else if (jugadorBlackJack.GetPuntaje() > puntaje){
-			texto = texto + "El jugador: " + jugadorBlackJack.GetNombre() + " Gano  " + "\n";
+			texto = texto + "El jugador: " + jugadorBlackJack.GetNombre() + " Gano;" + "\n";
 		} else if (jugadorBlackJack.GetPuntaje() < puntaje) {
-			texto = texto + "El jugador: " + jugadorBlackJack.GetNombre() + " Perdio  " + "\n";
+			texto = texto + "El jugador: " + jugadorBlackJack.GetNombre() + " Perdio;" + "\n";
 		}else{
-			texto = texto + "El jugador: " + jugadorBlackJack.GetNombre() + " empato  " + "\n";
+			texto = texto + "El jugador: " + jugadorBlackJack.GetNombre() + " empato;" + "\n";
 		}
 		return texto;
 	}
@@ -81,20 +83,20 @@ public class Crupier {
 		String texto = "";
 		for (int i = 0; i <jugadores.size(); i++) {
 			if(puntaje > 21){
-				texto = texto +  "El jugador: " + jugadores.get(i).GetNombre() + " Gano  " + "\n";
+				texto = texto +  "El jugador: " + jugadores.get(i).GetNombre() + " Gano;" + "\n";
 			}else if (jugadores.get(i).GetPuntaje() > 21){
-				texto = texto + "El jugador: " + jugadores.get(i).GetNombre() + "  Perdio	" + "\n";
+				texto = texto + "El jugador: " + jugadores.get(i).GetNombre() + "  Perdio;" + "\n";
 			}else if (jugadores.get(i).GetPuntaje() > puntaje){
-				texto = texto + "El jugador: " + jugadores.get(i).GetNombre() + " Gano  " + "\n";
+				texto = texto + "El jugador: " + jugadores.get(i).GetNombre() + " Gano;" + "\n";
 			} else if (jugadores.get(i).GetPuntaje() < puntaje) {
-				texto = texto + "El jugador: " + jugadores.get(i).GetNombre() + " Perdio  " + "\n";
+				texto = texto + "El jugador: " + jugadores.get(i).GetNombre() + " Perdio;" + "\n";
 			}else{
-				texto = texto + "El jugador: " + jugadores.get(i).GetNombre() + " empato  " + "\n";
+				texto = texto + "El jugador: " + jugadores.get(i).GetNombre() + " empato;" + "\n";
 			}
 		}
 		return texto;
 	}
-	public void Jugar() {
+	public String Jugar() {
 
 		MezclarMazo();
 		AñadirBots();
@@ -104,7 +106,6 @@ public class Crupier {
 
 		String a =CalcularGanador();
 		a = a + CalcularBotsGanador();
-		System.out.println(a);
+		return a;
 	}
-
 }

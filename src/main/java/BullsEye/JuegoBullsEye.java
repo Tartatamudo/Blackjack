@@ -15,12 +15,12 @@ public class JuegoBullsEye {
     }
 
     public void AñadirCaballos() {
-        Caballo caballo = new Caballo("Caballo1", "Negro", 0);
-        Caballo caballo1 = new Caballo("Caballo2", "blanco", 1);
-        Caballo caballo2 = new Caballo("Caballo3", "cafe", 2);
-        Caballo caballo3 = new Caballo("Caballo4", "gris", 3);
-        Caballo caballo4 = new Caballo("Caballo5", "Castaño", 4);
-        Caballo caballo5 = new Caballo("Caballo6", "Pinto", 5);
+        Caballo caballo = new Caballo("Caballo1", "Negro", 1);
+        Caballo caballo1 = new Caballo("Caballo2", "blanco", 2);
+        Caballo caballo2 = new Caballo("Caballo3", "cafe", 3);
+        Caballo caballo3 = new Caballo("Caballo4", "gris", 4);
+        Caballo caballo4 = new Caballo("Caballo5", "Castaño", 5);
+        Caballo caballo5 = new Caballo("Caballo6", "Pinto", 6);
 
         this.caballos.add(caballo);
         this.caballos.add(caballo1);
@@ -53,7 +53,6 @@ public class JuegoBullsEye {
         jugadorBullsEye5.SetNumero((int)(Math.random()*5));
         jugadoresBullsEye.add(jugadorBullsEye5);
 
-        System.out.println((int)(Math.random()*5));
     }
     public void DarNumRAndomCaballos() {
         for (int i = 0; i < caballos.size(); i++) {
@@ -61,64 +60,35 @@ public class JuegoBullsEye {
         }
     }
 
-    public void DarNumJugador(){
-        Scanner teclado = new Scanner(System.in);
+    public String ElegirMontoApuesta(){
+        String texto = "";
+        texto = texto + ("[1]500;");
+        texto = texto + ("[2]1000;");
+        texto = texto + "[3]5000;";
+        texto = texto + "[4]10000;";
+        texto = texto + "[5]25000;";
+        texto = texto + "[6]50000;";
 
-        System.out.println("Eliga el numero del caballo por el que va a apostar del 0 al 5");
-        int num = teclado.nextInt();
-
-        jugadorBullsEye.SetNumero(num);
+        return texto;
     }
-
-    public int ElegirMontoApuesta(){
-        int monto = 0;
-        Scanner teclado = new Scanner(System.in);
-        System.out.println("ELiga monto que va a apostar");
-        System.out.println("[1]500");
-        System.out.println("[2]1000");
-        System.out.println("[3]5000");
-        System.out.println("[4]10000");
-        System.out.println("[5]25000");
-        System.out.println("[6]50000");
-        int eleccion = teclado.nextInt();
-        switch (eleccion){
-            case 1:
-                monto = 500;
-                break;
-            case 2:
-                monto = 1000;
-                break;
-            case 3:
-                monto = 5000;
-                break;
-            case 4:
-                monto = 10000;
-                break;
-            case 5:
-                monto = 25000;
-                break;
-            case 6:
-                monto = 50000;
-        }
-        return monto;
-    }
-    public void Jugar(){
+    public String Jugar(int caballoApuesta, int apuesta){
+        String texto = "";
         AñadirCaballos();
         DarNumRAndomCaballos();
-        DarNumJugador();
-        int apuesta = ElegirMontoApuesta();
+
+        jugadorBullsEye.SetNumero(caballoApuesta);
 
         ElegirCaballoGanador();
-        ImprimirDatosCaballoganador();
-        System.out.println();
-        ResultadoJugador(apuesta);
+
+        texto = texto + ResultadoJugador(apuesta) + " ";
 
         AñadirBots();
-        ResultadoBots();
+        texto = texto + ResultadoBots();
+
+        return texto;
     }
-    public void ImprimirDatosCaballoganador(){
-        System.out.println("El caballo ganador fue: ");
-        caballoGanador.GetDatos();
+    public String ImprimirDatosCaballoganador(){
+        return "El caballo ganador fue: " + caballoGanador.GetDatos();
     }
     public void ElegirCaballoGanador(){
         caballoGanador = caballos.get(0);
@@ -146,26 +116,34 @@ public class JuegoBullsEye {
         }
     }
 
-    public void ResultadoJugador(int apuesta){
+    public String ResultadoJugador(int apuesta){
+        String texto = "";
         int montoGanado;
         if (jugadorBullsEye.GetNumero() == caballoGanador.GetId()){
             montoGanado = MontoGanado(apuesta);
-            System.out.println("jugador " + jugadorBullsEye.GetNombre() + " gano: " + montoGanado);
+            jugadorBullsEye.setMonto(montoGanado);
+            texto = texto + "jugador: " + jugadorBullsEye.GetNombre() + " gano: " + Integer.toString(montoGanado) + "Le quedan: " + jugadorBullsEye.GetMonto() + ";";
         }else{
             montoGanado = (-apuesta);
-            System.out.println("jugador " + jugadorBullsEye.GetNombre() + " perdio: " + montoGanado);
+            jugadorBullsEye.setMonto(montoGanado);
+            texto = texto + "jugador: " + jugadorBullsEye.GetNombre() + " perdio: " + Integer.toString(-(montoGanado))  + "Le quedan: " + jugadorBullsEye.GetMonto() + ";";
         }
-        jugadorBullsEye.setMonto(montoGanado);
 
-        System.out.println("Usted tiene: " + jugadorBullsEye.GetMonto() + " pesos");
+        return texto;
     }
-    public void ResultadoBots(){
+    public String ResultadoBots(){
+        String texto  = "";
         for (int i = 0; i < jugadoresBullsEye.size(); i++) {
             if (jugadoresBullsEye.get(i).GetNumero() == caballoGanador.GetId()){
-                System.out.println("jugador " + jugadoresBullsEye.get(i).GetNombre() + " gano");
+                texto = texto + "jugador " + jugadoresBullsEye.get(i).GetNombre() + " gano ;";
             }else{
-                System.out.println("jugador " + jugadoresBullsEye.get(i).GetNombre() + " perdio");
+                texto = texto + "jugador " + jugadoresBullsEye.get(i).GetNombre() + " perdio ;";
             }
         }
+        return texto;
+    }
+
+    public JugadorBullsEye Getjugador(){
+        return jugadorBullsEye;
     }
 }

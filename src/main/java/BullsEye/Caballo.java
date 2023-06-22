@@ -24,9 +24,11 @@ public class Caballo {
     public int GetId(){
         return id;
     }
-    public void GetDatos(){
-        System.out.println("Nombre: " + nombre);
-        System.out.println("Color: " + color);
-        System.out.println("Id: " + id);
+    public String GetDatos(){
+        String texto = "";
+        texto = texto + "Nombre: " + nombre + " ";
+        texto = texto + "Color: " + color + " ";
+        texto = texto + "Id: " + id + " ";
+    return texto;
     }
 }
